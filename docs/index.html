@@ -10,6 +10,7 @@
     <!-- <div class="spacer"><h2>The Untitled Laser Project</h2></div> -->
     <div class="spacer spacer--top">
         <h2>The Untitled Laser Project</h2>
+        <p>Creating Fictive Thermosensory Environments via Laser Heating</p>
 
         <div class="spacer-arrow" aria-hidden="true"></div>
     </div>
@@ -21,14 +22,77 @@
             <span class="chev"></span>
         </div>
 
-        <div class="headline">
-          <h1>Cooling Stage</h1>
-          <p>From idea to application</p>
+        <div class="headline" id="imageHeadline">
+          <!-- <h1>The Cooling Stage</h1>
+          <p>An important component of the system</p> -->
+        </div>
+      </div>
+    </section>
+    <section id="handoffSection">
+      <div class="handoff-sticky">
+        <div class="project">
+          <div class="project-media">
+            <!-- This is the FINAL resting spot -->
+            <img
+              id="handoffTarget"
+              src="cooling_stage_images/v6-clear-worm.png"
+              alt="Cooling stage"
+            />
+          </div>
+
+          <div class="project-text">
+            <h2>Why?</h2>
+            <p>The Cooling Stage component of the system serves 2 complementary purposes: </p>
+            <ul class="standout_reasons">
+              <li>Expanding the experimental range</li>
+              <li>Increasing temperature responsiveness</li>
+            </ul> 
+            <p>
+              Having a platform from which to cool the slide enables this project's core idea: <b>modulating laser power to determine experienced temperature</b>. <br /><br />
+              The key is that any given amount of energy added by the laser has a steady state with ambient heat loss, and that balance will resolve faster if there's a larger difference between it and the ambient temperature. In other words: the laser easily heats, but even if you turn it completely off, the cooling rate is determined by the distance from ambient temperature.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="spacer"><h2>Why?</h2></div>
+    <div class="text_content">
+      <p>
+        In preliminary tests, we found that just using the laser was able to create precise, consistent temperature profiles, but required a minimum experimental temperature which was already uncomfortably high for a C. elegans. This also essentially precluded any negative thermotaxis (movement towards colder temperatures) experiments, as we would have to start out at temperatures which would likely induce heat shock.<br /><br />
+        <!-- Beyond that, in order to run any reasonable negative thermotaxis (movement towards colder temperatures) experiments, you need a temperature floor that's not just whatever the ambient temperature happens to be at that moment. <br /> -->
+        <!-- Unfortunately, C. elegans exhibit more robust negative thermotaxis than positive thermotaxis. -->
+        <!-- it's just a bonus that it also results in a consistent, reproducible baseline.<br /> -->
+        
+        So, it makes sense to attempt to decrease the ambient environment, but the design had some specific criteria to fulfill:
+      </p>
+      <ul class="standout_reasons">
+        <li>Not interfere with the confocal imaging path (lasers & camera FOV)</li>
+        <li>Not interfere with the near infra-red tracking path (LED and camera)</li>
+        <li>Not interfere with any of the wavelengths used in those paths</li>
+        <li>Not interfere with the NIR stimulation (heating) laser</li>
+        <li>Not interfere with the worm's environment or movement</li>
+        <li>Not interfere with the movement of the stage</li>
+        <li>Have a mild thermal gradient across the slide</li>
+        <li>Physically fit on the microscope</li>
+        <li>Hold a consistent temperature</li>
+      </ul> 
+
+      <p>
+        To achieve these, the system involves a reference thermistor, sitting out of the way of the worm, as well as a pump, which transports a specifically chosen heat transfer fluid across the cooling device. That device has been optimized to prioritize even cooling (i.e. that the inflow side and center are not significantly colder than the outflow and edges, as tends to happen). The coolant, motor, and device geometry have each gone through many iterations; even the materials of the slide have been optimized, using sapphire for its superior thermal conductivity over glass.
+      </p>
+      <!-- <p>
+          Maybe ideas
+          Then, talk about materials, HT, sapphire. Prob bring in gradient.
+          Also touch: Design, water, therm in corner. Pump type. 
+          Mention objective?
+      </p> -->
+    </div>
+    <!-- <div class="spacer">
+    </div> -->
+
+    <div id="handoffOverlay" aria-hidden="true">
+      <img id="handoffOverlayImg" src="cooling_stage_images/v6.jpg" alt="" />
+    </div>
 
     <script>
       const SOURCES = [
@@ -45,6 +109,7 @@
       // 0.5 = centered
       // 1   = align to bottom (show bottom of the image)
       const Y_ANCHOR = 0.23;
+      document.documentElement.style.setProperty("--ypos", `${Y_ANCHOR * 100}%`);
 
       // Pause briefly on each image before blending (Apple-ish)
       const HOLD = 0.22; // 0..0.8
@@ -56,7 +121,42 @@
       const clamp01 = (v) => Math.max(0, Math.min(1, v));
       const smoothstep = (t) => t * t * (3 - 2 * t);
 
-      section.style.height = `${Math.max(2, SOURCES.length) * 100}vh`;
+      const handoffSection = document.getElementById("handoffSection");
+      const handoffOverlay = document.getElementById("handoffOverlay");
+      const handoffOverlayImg = document.getElementById("handoffOverlayImg");
+      const handoffTarget = document.getElementById("handoffTarget");
+      const imageHeadline = document.getElementById("imageHeadline");
+
+      // how round the image gets when it lands
+      const TARGET_RADIUS_PX = 22;
+
+      // optional: keep full-screen briefly before it starts moving
+      const HANDOFF_HOLD_START = 0.08;
+      // optional: keep it landed briefly at the end
+      const HANDOFF_HOLD_END = 0.06;
+
+      const lerp = (a, b, t) => a + (b - a) * t;
+
+      function sectionProgress(sec) {
+        const rect = sec.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const total = rect.height - vh;
+        const scrolledInto = -rect.top;
+        return total > 0 ? clamp01(scrolledInto / total) : 0;
+      }
+
+      function heldEase(t) {
+        // Adds “holds” at ends: 0..holdStart stays 0, (1-holdEnd)..1 stays 1
+        const hs = HANDOFF_HOLD_START;
+        const he = HANDOFF_HOLD_END;
+        if (t <= hs) return 0;
+        if (t >= 1 - he) return 1;
+        const u = (t - hs) / (1 - hs - he);
+        return smoothstep(u);
+      }
+
+
+      section.style.height = `${Math.max(2, SOURCES.length) * 80}vh`;
 
       function loadImages(srcs) {
         return Promise.all(srcs.map(src => new Promise((res, rej) => {
@@ -152,23 +252,86 @@
         };
       }
 
+      function updateHandoff() {
+        const rect = handoffSection.getBoundingClientRect();
+        const vh = window.innerHeight;
+
+        const HANDOFF_DURATION_VH = 1.1; // try 0.9 (snappier) to 1.4 (slower)
+        const p = clamp01((vh - rect.top) / (vh * HANDOFF_DURATION_VH));
+
+        if (p <= 0) {
+          canvas.style.opacity = "1";
+          imageHeadline.style.opacity = "1";
+          handoffOverlay.style.opacity = "0";
+          handoffTarget.style.opacity = "0";
+          return;
+        }
+
+        canvas.style.opacity = "0";
+        imageHeadline.style.opacity = "0";
+        handoffOverlay.style.opacity = "1";
+
+        const e = heldEase(p);
+
+        const start = { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
+
+        const endRect = handoffTarget.getBoundingClientRect();
+        const end = { left: endRect.left, top: endRect.top, width: endRect.width, height: endRect.height };
+
+        const L = lerp(start.left, end.left, e);
+        const T = lerp(start.top, end.top, e);
+        const W = lerp(start.width, end.width, e);
+        const H = lerp(start.height, end.height, e);
+
+        handoffOverlay.style.left = `${L}px`;
+        handoffOverlay.style.top = `${T}px`;
+        handoffOverlay.style.width = `${W}px`;
+        handoffOverlay.style.height = `${H}px`;
+
+        const r = lerp(0, TARGET_RADIUS_PX, e);
+        handoffOverlayImg.style.borderRadius = `${r}px`;
+
+        if (p >= 0.999) {
+          handoffOverlay.style.opacity = "0";
+          handoffTarget.style.opacity = "1";
+          imageHeadline.style.opacity = "0";
+
+        } else {
+          handoffTarget.style.opacity = "0";
+        }
+      }
+
+
       let render = () => {};
       let ticking = false;
       function onScroll() {
         if (!ticking) {
           ticking = true;
-          requestAnimationFrame(() => { render(); ticking = false; });
+          requestAnimationFrame(() => {
+            render();
+            updateHandoff();
+            ticking = false;
+          });
         }
       }
+
 
       (async function init() {
         const imgs = await loadImages(SOURCES);
         resizeCanvas();
         render = makeBlender(imgs, HOLD);
         render();
+        updateHandoff();
+
 
         window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", () => { resizeCanvas(); render(); });
+        // window.addEventListener("resize", () => { resizeCanvas(); render(); });
+        window.addEventListener("resize", () => {
+          resizeCanvas();
+          render();
+          updateHandoff();
+        });
+
       })().catch(err => console.error(err));
     </script>
   </body>
