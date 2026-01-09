@@ -158,9 +158,22 @@ canvas { width: 100vw; height: 100vh; display: block; }
 }
 .standout_reasons li {
   padding: 10px 14px;
-  color: #696969;
+  /* color: #696969; */
 }
 
 .text_content{
   padding: 0 10vw 10vh 10vw;
+}
+
+.explanatoryText {
+  padding: 0 10vw;
+  line-height: 1.8;
+}
+
+a {
+  color: #838383;
+  text-decoration: none;
+}
+a:hover {
+  color: white;
 }
