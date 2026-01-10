@@ -70,13 +70,18 @@ canvas { width: 100vw; height: 100vh; display: block; }
 }
 
 /* --- Handoff layout section --- */
-#handoffSection { height: 125vh; } /* gives you room to animate + then read */
+#handoffSection { 
+  min-height: 125vh;
+  height: auto; 
+} /* gives you room to animate + then read */
 .handoff-sticky{
   position: sticky;
   top: 0;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   display: grid;
   align-items: center;
+  padding-top: 5vh;
 }
 
 .project{
@@ -100,7 +105,7 @@ canvas { width: 100vw; height: 100vh; display: block; }
   transition: opacity 180ms ease;
 }
 
-.project-text h2{
+h2{
   margin: 0 0 12px;
   font-size: clamp(24px, 3vw, 42px);
   letter-spacing: -0.02em;
@@ -176,4 +181,150 @@ a {
 }
 a:hover {
   color: white;
+}
+
+/* 300 Equivalent Example Cycler */
+.cycler {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.15em;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.cycler:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Smooth swap animation */
+.cycler.is-swapping {
+  opacity: 0;
+  transform: translateY(-0.1em);
+}
+.cycler {
+  display: inline-block; /* needed for transform */
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+
+/* Interactive Laser Demo */
+.laser-widget { width: 100%; display: flex; justify-content: center; }
+.laser-wrap {
+  width: min(900px, 96vw);
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 16px;
+  align-items: stretch;
+  margin-bottom: 5vw;
+}
+
+.laser-pad{
+  position: relative;
+  /* aspect-ratio: 50 / 24; */
+  width: 50vw;
+  height: 24vw;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #1f1f1f;
+  overflow: hidden;
+  user-select: none;
+
+  /* Hide the real cursor inside the pad */
+  cursor: none;
+  touch-action: none;
+}
+
+.laser-side{ display:flex; flex-direction: column; gap: 12px; }
+
+.laser-bar-shell{
+  height: 100%;
+  min-height: 220px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+  width: 1vw;
+}
+.laser-bar{
+  position:absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: rgba(137, 37, 37, 0.65);
+  transition: height 40ms linear;
+}
+
+.laser-label{
+  display:flex;
+  flex-direction: column;
+  gap: 6px;
+  font: 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+.laser-input{
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.14);
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.laser-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.laser-error{
+  min-height: 1.2em;
+  font: 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: rgba(180, 0, 0, 0.9);
+}
+
+/* --- “Grey worm cursor” --- */
+.worm{
+  position: absolute;              /* <<< critical */
+  left: 0;                         /* will be overridden by JS */
+  top: 0;                          /* will be overridden by JS */
+  width: 48px;
+  height: 48px;
+  transform: translate(-50%, -50%) rotate(180deg);  /* <<< critical */
+  transform-origin: 50% 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+
+  background: url("cooling_stage_images/worm_cursor.png") center/contain no-repeat;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15));
+}
+.worm::before, .worm::after { content: none; }
+
+.laser-glow{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2vw;
+  height: 2vw;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+
+  /* A soft grey “blob” */
+  background: radial-gradient(circle,
+    rgba(190, 28, 28, 1) 0%,
+    rgba(132, 32, 32, 0.5) 35%,
+    rgba(8, 2, 2, 0) 70%
+  );
+  /* background: rgba(255, 35, 35, 0.753); */
+
+  /* We’ll animate these from JS */
+  /* filter: blur(10px); */
+  transition: opacity 120ms ease;
+  mix-blend-mode: multiply; /* optional; remove if you don't like the look */
+}
+
+
+
+
+@media (max-width: 720px) {
+  .laser-wrap { grid-template-columns: 1fr; }
+  .laser-bar-shell { height: 140px; min-height: 140px; }
 }
