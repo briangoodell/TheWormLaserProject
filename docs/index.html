@@ -12,15 +12,9 @@
     <div class="spacer spacer--top">
         <h2>The Laser Project</h2>
         <!-- <p>Creating Fictive Thermosensory Environments via Laser Heating</p> -->
-        <p class="explanatoryText">The simple premise of this project -- <strong>to use a laser to dictate the temperature an animal is experiencing</strong> -- belies the challenging implementation of such a task. <br /><br />
+        <p class="explanatoryText">The simple premise of this project -- <strong>to use a laser to control the temperature an animal is experiencing</strong> -- belies the challenging implementation of such a task; not heating, but cooling... <br /><br />
           
-        To start, our laser can only add energy (<i>C. elegans</i> aren't 
-        <a href="https://web.stanford.edu/~rpam/dropoff/Phys041N/lecture6-lasercooling.pdf" target="_blank" rel="noopener noreferrer">that small!</a>) 
-        and clearly cannot produce temperatures below that of the ambient environment.
-        Less obvious is that at any temperature, cooling rate is proportional to the temperature
-        differential between the heated area and the environment. Thus, if we want to act on the 
-        few-second scale of a worm sampling the environment by swinging its head (less than a fifth of a mm) we need to be operating enough above the ambient temperature to have rapid cooling. 
-        <!-- So, our cooling system serves 2 complementary purposes.  -->
+         
       </p>
 
         <div class="spacer-arrow" aria-hidden="true"></div>
@@ -62,7 +56,9 @@
               ">
               (0.00000035% of yours)
             </span>
-             <i>C. elegans</i> exhibit complex sensation and behavior, including state changes, directed movement (positive and negative), and importantly, robust thermotaxis. They are able to remember a conditioned temperature and then consistently make directed turns depending on their specific environment to navigate towards that temperature again. This holds whether or not that conditioned temperature was warm or cold, thus we'd like a system that can achieve both!
+             <i>C. elegans</i> exhibit complex sensation and behavior, including state changes, directed movement (positive and negative), and importantly, robust thermotaxis. They are able to remember a conditioned temperature and then consistently make the correct environmentally-informed directed reorientations to navigate towards that temperature again. This holds whether or not that conditioned temperature was warm or cold! However, since the lasers can only heat, (<i>C. elegans</i> aren't 
+            <a href="https://web.stanford.edu/~rpam/dropoff/Phys041N/lecture6-lasercooling.pdf" target="_blank" rel="noopener noreferrer">that small!</a>) 
+            the real challenge is cooling quickly enough to act on behavioral timescales.
 
             </p>
             <br />
@@ -84,10 +80,10 @@
         </div>
         <div class="text_content" style="padding-bottom: 0;">
           <h2>Cooling</h2>
-            <p>The cooling device iteration process you just viewed was necessary since heating the worm enough above ambient isn't feasible. <i>C. elegans</i> are most comfortable around room temp, and have severe heat shock responses, so the cooling stage allows both: </p>
+            <p>This is not only important if you want to do experiments below ambient temperature; importantly, cooling rate is proportional to the temperature differential between the heated area and the environment regardless of their absolute values. Since we need to act in the seconds it takes for a worm to swing its head (less than a fifth of a mm) and sample the environment, we need a large differential to allow fast cooling. Unfortunately, heating the worm that much above ambient just isn't feasible. <i>C. elegans</i> are most comfortable around room temp, and have severe heat shock responses, so the cooling stage (above) is a necessary solution to: </p>
             <ul class="standout_reasons">
-              <li>Expanded experimental range</li>
-              <li>Increased temperature responsiveness</li>
+              <li>Expanded experimental temperature range</li>
+              <li>Increased temperature change responsiveness</li>
             </ul> 
             <p>
                
@@ -108,7 +104,7 @@
       </p>
       
       <p>
-        Importantly, the design achieves this while fulfilling the many requirements imposed by our imagining and heating systems:
+        Importantly, the design achieves this while fulfilling the many requirements imposed by our imaging and heating systems:
       </p>
       <ul class="standout_reasons">
         <li>Not interfering with the confocal imaging path (lasers & camera FOV)</li>
@@ -129,7 +125,7 @@
       </ul> 
 
       <p>
-        This last point is important, as the cooling setup creates it's own ambient temperature gradient which needs to be accounted for.
+        This last point is important, as the cooling setup creates its own ambient temperature gradient which needs to be accounted for.
       </p>
       <div style="text-align: center">
         <img src="cooling_stage_images/gradient_model_cmap_rev.png" alt="A heatmap of the cooling system's gradient" style="filter: invert(100%); width: 50vw; margin-left: auto;
@@ -140,7 +136,7 @@
         </p>
       </div>
       <p>
-        However how have I gotten these measurements? <strong>How can we be sure we're actually capturing temperatures experienced by a mm-long nematode?</strong>
+        However, how have I gotten these measurements? <strong>How can we be sure we're actually capturing temperatures experienced by a mm-long nematode?</strong>
       </p>
         
         <!-- <p>
@@ -159,7 +155,7 @@
     </div>
     <div class="text_content">
       <h2>The Future</h2>
-      <p>Once our environmental control is established, we will be able to perform previously-impossible experiments to tackle biologically, neurologically and computational interesting questions! Some of the things we'd be able to test are:</p>
+      <p>Once our environmental control is established, we will be able to perform previously impossible experiments to tackle biologically, neurologically, and computationally interesting questions! Some of the things we'd be able to test are:</p>
       <ul class="standout_reasons">    
         <li>How <i>C. elegans</i> brains integrate sensory information across varied time periods</li>
         <li>How they process such little information to make highly correct reorientation decisions</li>
@@ -168,7 +164,7 @@
         <li>How they react to impossible environments (existence of physics-based neural priors)</li>
         <li>(With ACLL) How do they react differently to sensor inputs depending on neural state?</li>
         <li>(With ACLL) Can we manipulate sensory inputs to recreate the exact same neural activity</li>
-        <li>(With ACLL) Can they be coached to learn interal states (keeping a neuron high)</li>
+        <li>(With ACLL) Can they be coached to learn internal states (keeping a neuron high)</li>
         <!-- <li>(Hopeful) Can temperature serve as a thermogenetic channel that doesn't interfer with imaging?</li> -->
       </ul> 
     </div>
@@ -190,7 +186,7 @@
         </div>
 
         <label class="laser-label">
-          Goal Temperature Gradient:
+          Goal Temperature Gradient (change me):
           <input id="expr" class="laser-input" value="(x + y) / 2" />
         </label>
 
