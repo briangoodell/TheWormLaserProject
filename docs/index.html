@@ -4,17 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Worms & Lasers</title>
-    <link rel="stylesheet" href="main_scroll.css?v=20260110">
-    <link rel="icon" type="image/x-icon" href="cooling_stage_images/worm_cursor.png">
+    <link rel="stylesheet" href="main_scroll.css?v=20260111">
+    <link rel="icon" type="image/x-icon" href="cooling_stage_images/worm_favicon.png">
   </head>
   <body>
-    <!-- <div class="spacer"><h2>The Untitled Laser Project</h2></div> -->
     <div class="spacer spacer--top">
         <h2>The Laser Project</h2>
-        <!-- <p>Creating Fictive Thermosensory Environments via Laser Heating</p> -->
-        <p class="explanatoryText">The simple premise of this project -- <strong>to use a laser to control the temperature an animal is experiencing</strong> -- belies the challenging implementation of such a task; not heating, but cooling... <br /><br />
-          
-         
+        <p class="explanatoryText">While this project's premise is simple -- <strong>using a laser to control the temperature an animal is experiencing</strong> -- the implementation is deceivingly complex, and adding heat is much simpler than removing it...
+        <br /><br />         
       </p>
 
         <div class="spacer-arrow" aria-hidden="true"></div>
@@ -28,8 +25,6 @@
         </div>
 
         <div class="headline" id="imageHeadline">
-          <!-- <h1>The Cooling Stage</h1>
-          <p>An important component of the system</p> -->
         </div>
       </div>
     </section>
@@ -37,7 +32,6 @@
       <div class="handoff-sticky">
         <div class="project">
           <div class="project-media">
-            <!-- This is the FINAL resting spot -->
             <img
               id="handoffTarget"
               src="cooling_stage_images/v6-clear-worm.png"
@@ -56,26 +50,13 @@
               ">
               (0.00000035% of yours)
             </span>
-             <i>C. elegans</i> exhibit complex sensation and behavior, including state changes, directed movement (positive and negative), and importantly, robust thermotaxis. They are able to remember a conditioned temperature and then consistently make the correct environmentally-informed directed reorientations to navigate towards that temperature again. This holds whether or not that conditioned temperature was warm or cold! However, since the lasers can only heat, (<i>C. elegans</i> aren't 
+             <i>C. elegans</i> exhibit complex sensation and behavior, including state changes, directed movement (positive and negative), and importantly, robust thermotaxis. They are able to remember a conditioned temperature and then consistently correctly make environmentally-informed reorientations to efficiently navigate towards that temperature again. This holds whether or not that conditioned temperature was warm or cold! However, since the lasers can only heat, (<i>C. elegans</i> aren't 
             <a href="https://web.stanford.edu/~rpam/dropoff/Phys041N/lecture6-lasercooling.pdf" target="_blank" rel="noopener noreferrer">that small!</a>) 
             the real challenge is cooling quickly enough to act on behavioral timescales.
 
             </p>
+            <p style="opacity: 0.5;"><i>The <a href="https://flavell.mit.edu" target="_blank" rel="noopener noreferrer">Flavell Lab</a> focuses on C. elegans research, including <a href="https://live.briandalegoodell.com">my other main project</a>.</i></p>
             <br />
-            <br />
-            <br />
-            <!-- <h2>Cooling</h2>
-            <p>The cooling device iteration process you just viewed was necessary since heating the worm enough above ambient isn't feasible. <i>C. elegans</i> are most comfortable around room temp, and have severe heat shock responses, so the cooling stage allows both: </p>
-            <ul class="standout_reasons">
-              <li>Expanded experimental range</li>
-              <li>Increased temperature responsiveness</li>
-            </ul>  -->
-            <!-- <p>
-               
-              The system I created completely solves that temperature change asymmetry (heating rate is bounded by the maximum laser power, but even turning it completely off, cooling is capped by how cold the material around it is) and allows for negative (movement towards colder temperature) thermotaxis experiments. <br \><br \>
-              With the latest version of our cooling system, it can cool down to ~12°C, but is operated at a steady 15°C. From there, if the laser heats to 22° and is then turned off, it only takes 4 seconds to cool to 19°. This is more that sufficient as <i>C. elegans</i> perform best in gradients of 0.5-1.5 C/cm and take a few seconds to move a millimeter. They are usually kept at 20°C, so this is perfect for naturalist experiments.
-
-            </p> -->
           </div>
         </div>
         <div class="text_content" style="padding-bottom: 0;">
@@ -95,10 +76,6 @@
     </section>
 
     <div class="text_content">
-      <!-- <p>
-        The system I designed completely solves that temperature change asymmetry (heating rate is bounded by the maximum laser power, but even turning it completely off, cooling is capped by how cold the material around it is) and allows for negative (movement towards colder temperature) thermotaxis experiments.
-      </p> -->
-      
       <p>
         With the latest version of our cooling system, it can cool down to ~12°C, but is operated at a steady 15°C. From there, if the laser heats to 22° and is then turned off, it only takes 4 seconds to cool to 19°. This is more that sufficient as <i>C. elegans</i> perform best in gradients of 0.5-1.5 C/cm and take a few seconds to move a millimeter. They are usually kept at 20°C, so this is perfect for naturalist experiments.
       </p>
@@ -138,13 +115,6 @@
       <p>
         However, how have I gotten these measurements? <strong>How can we be sure we're actually capturing temperatures experienced by a mm-long nematode?</strong>
       </p>
-        
-        <!-- <p>
-          Maybe ideas
-          Then, talk about materials, HT, sapphire. Prob bring in gradient.
-          Also touch: Design, water, therm in corner. Pump type. 
-          Mention objective?
-      </p> -->
     </div>
     
     <div class="text_content">
@@ -162,9 +132,9 @@
         <li>How they update internal models in response to a changing environment</li>
         <li>How they react to thermal input decoupled from their actual movement </li>
         <li>How they react to impossible environments (existence of physics-based neural priors)</li>
-        <li>(With ACLL) How do they react differently to sensor inputs depending on neural state?</li>
-        <li>(With ACLL) Can we manipulate sensory inputs to recreate the exact same neural activity</li>
-        <li>(With ACLL) Can they be coached to learn internal states (keeping a neuron high)</li>
+        <li>(With <a href="live.briandalegoodell.com">ACLL</a>) How do they react differently to sensor inputs depending on neural state?</li>
+        <li>(With <a href="live.briandalegoodell.com">ACLL</a>) Can we manipulate sensory inputs to recreate the exact same neural activity</li>
+        <li>(With <a href="live.briandalegoodell.com">ACLL</a>) Can they be coached to learn internal states (keeping a neuron high)</li>
         <!-- <li>(Hopeful) Can temperature serve as a thermogenetic channel that doesn't interfer with imaging?</li> -->
       </ul> 
     </div>
